@@ -51,6 +51,19 @@ public:
     std::vector<UserPreset> userPresets;
     static juce::File presetFolder();
     void loadUserPresets();
+    /* the folder read again (after an import): the sound playing keeps its number */
+    void rescanUser()
+    {
+        auto cur = getProgramName(program);
+        loadUserPresets();
+        if (getProgramName(program) != cur)
+            for (int i = programCount(); --i >= 0;)
+                if (getProgramName(i) == cur) {
+                    program = i;
+                    break;
+                }
+        updateHostDisplay(ChangeDetails().withProgramChanged(true));
+    }
     int writePreset(const juce::String &name);   /* the sound as it is, kept under this name: its program number */
 
     juce::AudioProcessorValueTreeState apvts;
