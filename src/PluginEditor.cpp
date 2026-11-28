@@ -2,6 +2,7 @@
  * Copyright (C) 2026 swtdr34mz (SOLARIUM-23A) */
 #include "PluginEditor.h"
 #include "PanelDialog.h"
+#include "PatchFolderIO.h"
 #include "WindowSize.h"
 
 using namespace s23;
@@ -365,8 +366,11 @@ void SolarisEditor::saveProgram()
     w->addTextEditor("name", proc.getProgramName(proc.getCurrentProgram()));
     w->addButton("SAVE", 1, KeyPress(KeyPress::returnKey));
     w->addButton("CANCEL", 0, KeyPress(KeyPress::escapeKey));
+    pfio::addButtons(*w);   /* Folder, Import... */
     pdlg::showInside(*this, w);
     w->enterModalState(true, ModalCallbackFunction::create([this, w](int r) {
+                           if (pfio::handle(r, *this, SolarisProcessor::presetFolder(), ".s23", "preset", [this] { proc.rescanUser(); header->repaint(); }))
+                               return;
                            if (r == 1)
                                pdlg::checked(proc.writePreset(w->getTextEditorContents("name")), *this);
                            header->repaint();

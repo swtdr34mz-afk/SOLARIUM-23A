@@ -4,6 +4,11 @@ The newest first. To release a new version: raise the number in VERSION and put 
 "## <the new number>". After the merge into main the release is made by itself (auto-release.yml), the
 downloads are built into it, and the website and the Discord post follow.
 
+## 1.4.0
+Sharing sounds made easy: the SAVE window has two new buttons.
+- **Folder** opens the folder with your own presets in Explorer, Finder or the file manager.
+- **Import...** takes in presets from someone else: pick one or more `.s23` files, or a `.zip` of them. They show up in the list right away; a preset you already have is not replaced.
+
 ## 1.3.5
 After saving a sound of your own, the plugin now stays on it (before, Cubase, FL Studio and other VST3 hosts switched to another patch, so the new one had to be loaded again).
 
